@@ -5,7 +5,13 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnWeb", "LearnWeb\LearnWeb.csproj", "{10693F99-167A-45C7-A42D-021942237ED0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnWebRazor", "LearnWebRazor\LearnWebRazor.csproj", "{359CE4DC-7344-4A72-AD22-8353C7E64917}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnWebRazor", "LearnWebRazor\LearnWebRazor.csproj", "{359CE4DC-7344-4A72-AD22-8353C7E64917}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.DataAccess", "Learn.DataAccess\Learn.DataAccess.csproj", "{EE2F8234-C3BE-4AAE-BAC0-D38D7A370502}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.Models", "Learn.Models\Learn.Models.csproj", "{5EF3F02C-0936-4C98-9001-BEC859E89BA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.Utility", "Learn.Utility\Learn.Utility.csproj", "{B2EC65D4-16E8-453E-A206-24FC17DC1CB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{359CE4DC-7344-4A72-AD22-8353C7E64917}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{359CE4DC-7344-4A72-AD22-8353C7E64917}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{359CE4DC-7344-4A72-AD22-8353C7E64917}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE2F8234-C3BE-4AAE-BAC0-D38D7A370502}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE2F8234-C3BE-4AAE-BAC0-D38D7A370502}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE2F8234-C3BE-4AAE-BAC0-D38D7A370502}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE2F8234-C3BE-4AAE-BAC0-D38D7A370502}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EF3F02C-0936-4C98-9001-BEC859E89BA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EF3F02C-0936-4C98-9001-BEC859E89BA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EF3F02C-0936-4C98-9001-BEC859E89BA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EF3F02C-0936-4C98-9001-BEC859E89BA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2EC65D4-16E8-453E-A206-24FC17DC1CB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2EC65D4-16E8-453E-A206-24FC17DC1CB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2EC65D4-16E8-453E-A206-24FC17DC1CB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2EC65D4-16E8-453E-A206-24FC17DC1CB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
