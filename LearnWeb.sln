@@ -8,6 +8,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnWebRazor", "LearnWebRazor\LearnWebRazor.csproj", "{359CE4DC-7344-4A72-AD22-8353C7E64917}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.DataAccess", "Learn.DataAccess\Learn.DataAccess.csproj", "{EE2F8234-C3BE-4AAE-BAC0-D38D7A370502}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5EF3F02C-0936-4C98-9001-BEC859E89BA9} = {5EF3F02C-0936-4C98-9001-BEC859E89BA9}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn.Models", "Learn.Models\Learn.Models.csproj", "{5EF3F02C-0936-4C98-9001-BEC859E89BA9}"
 EndProject

@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace LearnWeb.Migrations
+namespace Learn.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class CreateTableCategoriesToDB : Migration

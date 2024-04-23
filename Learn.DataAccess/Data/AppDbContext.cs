@@ -1,7 +1,7 @@
-﻿using LearnWeb.Models;
+﻿using Learn.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace LearnWeb.Data
+namespace Learn.DataAccess.Data
 {
     public class AppDbContext: DbContext
     {

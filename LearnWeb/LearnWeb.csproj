@@ -15,4 +15,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Learn.DataAccess\Learn.DataAccess.csproj" />
+    <ProjectReference Include="..\Learn.Models\Learn.Models.csproj" />
+    <ProjectReference Include="..\Learn.Utility\Learn.Utility.csproj" />
+  </ItemGroup>
+
 </Project>

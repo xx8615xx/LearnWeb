@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace LearnWeb.Migrations
+namespace Learn.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class AddDataCategory : Migration

@@ -1,5 +1,5 @@
-﻿using LearnWeb.Data;
-using LearnWeb.Models;
+﻿using Learn.DataAccess.Data;
+using Learn.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearnWeb.Controllers
