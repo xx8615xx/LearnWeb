@@ -31,7 +31,9 @@ namespace Learn.DataAccess.Data
                     ListPrice = 99,
                     Price1 = 90,
                     Price50 = 85,
-                    Price100 = 80
+                    Price100 = 80,
+                    ImageUrl = "",
+                    CategoryID = 1
                 },
                 new Product
                 {
@@ -43,7 +45,9 @@ namespace Learn.DataAccess.Data
                     ListPrice = 40,
                     Price1 = 30,
                     Price50 = 25,
-                    Price100 = 20
+                    Price100 = 20,
+                    ImageUrl = "",
+                    CategoryID = 1
                 },
                 new Product
                 {
@@ -55,7 +59,9 @@ namespace Learn.DataAccess.Data
                     ListPrice = 55,
                     Price1 = 50,
                     Price50 = 40,
-                    Price100 = 35
+                    Price100 = 35,
+                    ImageUrl = "",
+                    CategoryID = 1
                 },
                 new Product
                 {
@@ -67,7 +73,9 @@ namespace Learn.DataAccess.Data
                     ListPrice = 70,
                     Price1 = 65,
                     Price50 = 60,
-                    Price100 = 55
+                    Price100 = 55,
+                    ImageUrl = "",
+                    CategoryID = 2
                 },
                 new Product
                 {
@@ -79,7 +87,9 @@ namespace Learn.DataAccess.Data
                     ListPrice = 30,
                     Price1 = 27,
                     Price50 = 25,
-                    Price100 = 20
+                    Price100 = 20,
+                    ImageUrl = "",
+                    CategoryID = 2
                 },
                 new Product
                 {
@@ -91,7 +101,9 @@ namespace Learn.DataAccess.Data
                     ListPrice = 25,
                     Price1 = 23,
                     Price50 = 22,
-                    Price100 = 20
+                    Price100 = 20,
+                    ImageUrl = "",
+                    CategoryID = 3
                 }
                 );
 

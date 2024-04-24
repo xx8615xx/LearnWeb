@@ -3,6 +3,7 @@ using Learn.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Learn.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240424065036_AddFKtoProductCategoryRelated")]
+    partial class AddFKtoProductCategoryRelated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,10 +91,6 @@ namespace Learn.DataAccess.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("ListPrice")
                         .HasColumnType("int");
 
@@ -123,7 +122,6 @@ namespace Learn.DataAccess.Migrations
                             CategoryID = 1,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "SWD9999001",
-                            ImageUrl = "",
                             ListPrice = 99,
                             Price1 = 90,
                             Price100 = 80,
@@ -137,7 +135,6 @@ namespace Learn.DataAccess.Migrations
                             CategoryID = 1,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "CAW777777701",
-                            ImageUrl = "",
                             ListPrice = 40,
                             Price1 = 30,
                             Price100 = 20,
@@ -151,7 +148,6 @@ namespace Learn.DataAccess.Migrations
                             CategoryID = 1,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "RITO5555501",
-                            ImageUrl = "",
                             ListPrice = 55,
                             Price1 = 50,
                             Price100 = 35,
@@ -165,7 +161,6 @@ namespace Learn.DataAccess.Migrations
                             CategoryID = 2,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "WS3333333301",
-                            ImageUrl = "",
                             ListPrice = 70,
                             Price1 = 65,
                             Price100 = 55,
@@ -179,7 +174,6 @@ namespace Learn.DataAccess.Migrations
                             CategoryID = 2,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "SOTJ1111111101",
-                            ImageUrl = "",
                             ListPrice = 30,
                             Price1 = 27,
                             Price100 = 20,
@@ -193,7 +187,6 @@ namespace Learn.DataAccess.Migrations
                             CategoryID = 3,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "FOT000000001",
-                            ImageUrl = "",
                             ListPrice = 25,
                             Price1 = 23,
                             Price100 = 20,

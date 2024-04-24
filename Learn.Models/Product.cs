@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Learn.Models
 {
@@ -48,5 +49,9 @@ namespace Learn.Models
         [Range(0, 10000, ErrorMessage = "Price should be between 0 and 10000.")]
         public int Price100 { get; set; }
 
+        public string ImageUrl { get; set; }
+        public int CategoryID {  get; set; }
+        [ForeignKey("CategoryID")]
+        public Category Category { get; set; }
     }
 }
