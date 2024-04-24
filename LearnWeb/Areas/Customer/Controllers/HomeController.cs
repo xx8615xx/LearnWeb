@@ -2,7 +2,7 @@ using Learn.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace LearnWeb.Controllers
+namespace LearnWeb.Areas.Customer.Controllers
 {
     public class HomeController : Controller
     {

@@ -1,18 +1,21 @@
 ﻿using Learn.DataAccess.Data;
+using Learn.DataAccess.Repository;
+using Learn.DataAccess.Repository.IRepository;
 using Learn.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LearnWeb.Controllers
+namespace LearnWeb.Areas.Admin.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly AppDbContext _db;
-        public CategoryController(AppDbContext db){
-            _db = db; 
+        private readonly IUnitOfWork _unitOfWork;
+        public CategoryController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
-            List<Category> categoryList = _db.Categories.ToList();
+            List<Category> categoryList = _unitOfWork.Category.GetAll().ToList();
             return View(categoryList);
         }
 
@@ -30,8 +33,8 @@ namespace LearnWeb.Controllers
             //}
             if (ModelState.IsValid)
             {
-                _db.Categories.Add(obj);
-                _db.SaveChanges();
+                _unitOfWork.Category.Add(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Category created successfully.";
                 return RedirectToAction("Index", "Category");
             }
@@ -40,13 +43,16 @@ namespace LearnWeb.Controllers
 
         public IActionResult Edit(int? id)
         {
-            if(id==null || id == 0){
+            if (id == null || id == 0)
+            {
                 return NotFound();
             }
-            Category? categoryFromDB = _db.Categories.Find(id);
+            //Category? categoryFromDB = _db.Categories.Find(id);
             //Category? categoryFromDB2 = _db.Categories.FirstOrDefault(u=>u.ID==id);
             //Category? categoryFromDB3 = _db.Categories.Where(u=>u.ID==id).FirstOrDefault();
-            if (categoryFromDB == null){
+            Category? categoryFromDB = _unitOfWork.Category.Get(u => u.ID == id);
+            if (categoryFromDB == null)
+            {
                 return NotFound();
             }
             return View(categoryFromDB);
@@ -56,8 +62,8 @@ namespace LearnWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Categories.Update(obj);
-                _db.SaveChanges();
+                _unitOfWork.Category.Update(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Category edited successfully.";
                 return RedirectToAction("Index", "Category");
             }
@@ -70,9 +76,10 @@ namespace LearnWeb.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDB = _db.Categories.Find(id);
+            //Category? categoryFromDB = _db.Categories.Find(id);
             //Category? categoryFromDB2 = _db.Categories.FirstOrDefault(u=>u.ID==id);
             //Category? categoryFromDB3 = _db.Categories.Where(u=>u.ID==id).FirstOrDefault();
+            Category? categoryFromDB = _unitOfWork.Category.Get(u => u.ID == id);
             if (categoryFromDB == null)
             {
                 return NotFound();
@@ -82,12 +89,14 @@ namespace LearnWeb.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePost(int? id)
         {
-            Category? obj = _db.Categories.Find(id);
-            if(obj == null){
+            //Category? obj = _db.Categories.Find(id);
+            Category? obj = _unitOfWork.Category.Get(u => u.ID == id);
+            if (obj == null)
+            {
                 return NotFound();
             }
-            _db.Categories.Remove(obj);
-            _db.SaveChanges();
+            _unitOfWork.Category.Remove(obj);
+            _unitOfWork.Save();
             TempData["success"] = "Category deleted successfully.";
             return RedirectToAction("Index", "Category");
         }
