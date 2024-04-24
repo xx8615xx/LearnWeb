@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Learn.DataAccess.Repository
 {
-    public class Repository<T> : IRepository_Category<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class
     {
         private readonly AppDbContext _db;
         private DbSet<T> _dbSet;
