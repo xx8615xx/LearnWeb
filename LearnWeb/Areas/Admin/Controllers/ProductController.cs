@@ -1,6 +1,7 @@
 ﻿using Learn.DataAccess.Repository.IRepository;
 using Learn.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LearnWeb.Areas.Admin.Controllers
 {
@@ -14,12 +15,21 @@ namespace LearnWeb.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Product> categoryList = _unitOfWork.Product.GetAll().ToList();
-            return View(categoryList);
+            List<Product> productList = _unitOfWork.Product.GetAll().ToList();
+            
+            return View(productList);
         }
 
         public IActionResult Create()
         {
+            IEnumerable<SelectListItem> categoryList = _unitOfWork.Category
+                .GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.ID.ToString()
+                });
+            //ViewBag.CategoryList = categoryList;
+            ViewData["CategoryList"] = categoryList;
             return View();
         }
 
