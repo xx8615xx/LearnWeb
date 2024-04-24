@@ -22,7 +22,7 @@ namespace LearnWeb.Areas.Admin.Controllers
         }
 
         //Upsert = Update + Insert
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
             //ViewBag.CategoryList = categoryList;
             //ViewData["CategoryList"] = categoryList;
@@ -36,12 +36,20 @@ namespace LearnWeb.Areas.Admin.Controllers
                     }),
                 Product = new Product()
             };
+            if(id == null || id == 0)
+            {
+
+            }
+            else
+            {
+                productVM.Product = _unitOfWork.Product.Get(u => u.ID == id);
+            }
             
             return View(productVM);
         }
 
         [HttpPost]
-        public IActionResult Create(ProductVM obj)
+        public IActionResult Upsert(ProductVM obj, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
