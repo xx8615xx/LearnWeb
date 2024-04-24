@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Learn.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Learn.DataAccess.Repository.IRepository
 {
-    public interface IUnitOfWork
+    public interface IProductRepository : IRepository<Product>
     {
-        ICategoryRepository Category { get; }
-        IProductRepository Product { get; }
-        public void Save();
+        public void Update(Product obj);
     }
 }
