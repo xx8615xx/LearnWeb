@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Learn.Models
 {
@@ -48,9 +49,9 @@ namespace Learn.Models
         [DisplayName("Price for 100+")]
         [Range(0, 10000, ErrorMessage = "Price should be between 0 and 10000.")]
         public int Price100 { get; set; }
-
         public string ImageUrl { get; set; }
         public int CategoryID {  get; set; }
+        [ValidateNever]
         [ForeignKey("CategoryID")]
         public Category Category { get; set; }
     }
