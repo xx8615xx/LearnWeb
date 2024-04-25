@@ -115,6 +115,7 @@ namespace LearnWeb.Areas.Admin.Controllers
 
         }
 
+        [HttpDelete]
         public IActionResult Delete(int? id)
         {
             var obj = _unitOfWork.Product.Get(u=>u.ID==id);
@@ -133,7 +134,7 @@ namespace LearnWeb.Areas.Admin.Controllers
 
             _unitOfWork.Product.Remove(obj);
             _unitOfWork.Save();
-            return Json(new { success=true, message = "Delete compeleted." });
+            return Json(new { success=true, message = "Product deleted successfully." });
 
         }
         #endregion
