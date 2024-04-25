@@ -49,6 +49,7 @@ namespace Learn.Models
         [DisplayName("Price for 100+")]
         [Range(0, 10000, ErrorMessage = "Price should be between 0 and 10000.")]
         public int Price100 { get; set; }
+        [ValidateNever]
         public string ImageUrl { get; set; }
         public int CategoryID {  get; set; }
         [ValidateNever]

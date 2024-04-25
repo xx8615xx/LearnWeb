@@ -19,7 +19,24 @@ namespace Learn.DataAccess.Repository
 
         public void Update(Product obj)
         {
-            _db.Products.Update(obj);
+            //_db.Products.Update(obj);
+            var objFromDB = _db.Products.FirstOrDefault(u=>u.ID==obj.ID);
+            if (objFromDB != null)
+            {
+                objFromDB.Title = obj.Title;
+                objFromDB.Description = obj.Description;
+                objFromDB.ISBN = obj.ISBN;
+                objFromDB.Author = obj.Author;
+                objFromDB.ListPrice = obj.ListPrice;
+                objFromDB.Price1 = obj.Price1;
+                objFromDB.Price50 = obj.Price50;
+                objFromDB.Price100 = obj.Price100;
+                objFromDB.CategoryID = obj.CategoryID;
+                if(obj.ImageUrl != null)
+                {
+                    objFromDB.ImageUrl = obj.ImageUrl;
+                }
+            }
         }
     }
 }
