@@ -31,7 +31,7 @@ namespace Learn.DataAccess.Repository
         {
             //Category? categoryFromDB3 = _db.Categories.Where(u=>u.ID==id).FirstOrDefault();
             IQueryable<T> querry = _dbSet.Where(filter);
-            if (string.IsNullOrEmpty(includeProperties))
+            if (!string.IsNullOrEmpty(includeProperties))
             {
                 foreach (var includeProp in includeProperties
                     .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
