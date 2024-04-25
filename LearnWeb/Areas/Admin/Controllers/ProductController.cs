@@ -137,8 +137,8 @@ namespace LearnWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll(int id)
         {
-            List<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
-            return Json(new { productList });
+            List<Product> data = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
+            return Json(new { data });
 
         }
         #endregion
