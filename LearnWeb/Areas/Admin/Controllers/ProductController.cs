@@ -1,12 +1,15 @@
 ﻿using Learn.DataAccess.Repository.IRepository;
 using Learn.Models;
 using Learn.Models.ViewModels;
+using Learn.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LearnWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

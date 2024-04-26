@@ -2,11 +2,14 @@
 using Learn.DataAccess.Repository;
 using Learn.DataAccess.Repository.IRepository;
 using Learn.Models;
+using Learn.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearnWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
