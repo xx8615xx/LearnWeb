@@ -36,7 +36,7 @@ namespace Learn.DataAccess.Repository
                 foreach (var includeProp in includeProperties
                     .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    querry.Include(includeProp);
+                    querry = querry.Include(includeProp);
                 }
             }
             return querry.FirstOrDefault();
