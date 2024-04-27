@@ -24,5 +24,8 @@ namespace Learn.Models
         [ForeignKey("ApplicationUserID")]
         [ValidateNever]
         public ApplicationUser ApplicationUser { get; set; }
+
+        [NotMapped]
+        public int Price { get; set; }
     }
 }

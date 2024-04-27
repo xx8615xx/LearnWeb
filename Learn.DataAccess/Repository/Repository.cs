@@ -27,7 +27,7 @@ namespace Learn.DataAccess.Repository
             _dbSet.Add(entity);
         }
 
-        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = false)
+        public T Get(Expression<Func<T, bool>>? filter = null, string? includeProperties = null, bool tracked = false)
         {
             //Category? categoryFromDB3 = _db.Categories.Where(u=>u.ID==id).FirstOrDefault();
             IQueryable<T> querry;
@@ -40,7 +40,10 @@ namespace Learn.DataAccess.Repository
                 querry = _dbSet.AsNoTracking();
             }
 
-            querry = querry.Where(filter);
+            if (filter != null)
+            {
+                querry = querry.Where(filter);
+            }
             if (!string.IsNullOrEmpty(includeProperties))
             {
                 foreach (var includeProp in includeProperties
@@ -52,9 +55,23 @@ namespace Learn.DataAccess.Repository
             return querry.FirstOrDefault();
         }
 
-        public IEnumerable<T> GetAll(string? includeProperties = null)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null, bool tracked = false)
         {
-            IQueryable<T> querry = _dbSet;
+            IQueryable<T> querry;
+            if (tracked)
+            {
+                querry = _dbSet;
+            }
+            else
+            {
+                querry = _dbSet.AsNoTracking();
+            }
+
+            if(filter != null)
+            {
+                querry = querry.Where(filter);
+            }
+            
             if (!string.IsNullOrEmpty(includeProperties))
             {
                 foreach (var includeProp in includeProperties
