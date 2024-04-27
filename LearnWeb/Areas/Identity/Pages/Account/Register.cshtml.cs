@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Learn.DataAccess.Repository.IRepository;
 using Learn.Models;
 using Learn.Utility;
 using Microsoft.AspNetCore.Authentication;
@@ -33,6 +34,7 @@ namespace LearnWeb.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IUnitOfWork _unitOfWork;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -40,7 +42,8 @@ namespace LearnWeb.Areas.Identity.Pages.Account
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -49,6 +52,7 @@ namespace LearnWeb.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -107,6 +111,9 @@ namespace LearnWeb.Areas.Identity.Pages.Account
             public string? Role { get; set; }
             public IEnumerable<SelectListItem> RoleList { get; set; }
 
+            public int? CompanyID { get; set; }
+            public IEnumerable<SelectListItem> CompanyList { get; set; }
+
             [Required]
             public string Name { get; set; }
             [Required]
@@ -129,10 +136,16 @@ namespace LearnWeb.Areas.Identity.Pages.Account
 
             Input = new()
             {
-                RoleList = _roleManager.Roles.Select(u => u.Name).Select( x=> new SelectListItem()
+                RoleList = _roleManager.Roles.Select(u => u.Name).Select(x => new SelectListItem()
                 {
-                    Text=x,
-                    Value=x
+                    Text = x,
+                    Value = x
+                }),
+
+                CompanyList = _unitOfWork.Company.GetAll().Select(x => new SelectListItem()
+                {
+                    Text = x.Name,
+                    Value = x.ID.ToString()
                 })
             };
 
