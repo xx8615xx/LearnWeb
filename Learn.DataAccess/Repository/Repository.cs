@@ -27,10 +27,20 @@ namespace Learn.DataAccess.Repository
             _dbSet.Add(entity);
         }
 
-        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null)
+        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = false)
         {
             //Category? categoryFromDB3 = _db.Categories.Where(u=>u.ID==id).FirstOrDefault();
-            IQueryable<T> querry = _dbSet.Where(filter);
+            IQueryable<T> querry;
+            if (tracked)
+            {
+                querry = _dbSet;
+            }
+            else
+            {
+                querry = _dbSet.AsNoTracking();
+            }
+
+            querry = querry.Where(filter);
             if (!string.IsNullOrEmpty(includeProperties))
             {
                 foreach (var includeProp in includeProperties
