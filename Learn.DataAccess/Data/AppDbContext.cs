@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Learn.DataAccess.Data
 {
-    public class AppDbContext: IdentityDbContext<IdentityUser>
+    public class AppDbContext : IdentityDbContext<IdentityUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            
+
         }
 
         public DbSet<Category> Categories { get; set; }
@@ -25,6 +25,11 @@ namespace Learn.DataAccess.Data
                 new Category { ID = 1, Name = "Action", DisplayOrder = 1 },
                 new Category { ID = 2, Name = "SciFi", DisplayOrder = 2 },
                 new Category { ID = 3, Name = "History", DisplayOrder = 3 }
+                );
+            modelBuilder.Entity<Company>().HasData(
+                new Company { ID = 1, Name = "Company1", StreetAddress = "address1", City = "city1", PhoneNumber = "0900123123", PostalCode = "100", State = "taiwan" },
+                new Company { ID = 2, Name = "Company2", StreetAddress = "address2", City = "city2", PhoneNumber = "0900123123", PostalCode = "100", State = "taiwan" },
+                new Company { ID = 3, Name = "Company3", StreetAddress = "address3", City = "city3", PhoneNumber = "0900123123", PostalCode = "100", State = "taiwan" }
                 );
             modelBuilder.Entity<Product>().HasData(
                 new Product
