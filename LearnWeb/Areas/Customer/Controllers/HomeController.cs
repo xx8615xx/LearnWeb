@@ -25,8 +25,14 @@ namespace LearnWeb.Areas.Customer.Controllers
 
         public IActionResult Details(int id)
         {
-            Product product = _unitOfWork.Product.Get(u => u.ID == id, includeProperties: "Category");
-            return View(product);
+            ShoppingCart shoppingCart = new()
+            {
+                Product = _unitOfWork.Product.Get(u => u.ID == id, includeProperties: "Category"),
+                Count = 1,
+                ProductID = id
+            };
+            
+            return View(shoppingCart);
         }
 
         public IActionResult Privacy()
