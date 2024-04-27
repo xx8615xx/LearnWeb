@@ -35,6 +35,43 @@ namespace LearnWeb.Areas.Customer.Controllers
             return View(ShoppingCartVM);
         }
 
+        public IActionResult Summary()
+        {
+            return View();
+        }
+
+        public IActionResult Plus(int cartID)
+        {
+            var cartFromDb = _unitOfWork.ShoppingCart.Get(u=>u.Id == cartID);
+            cartFromDb.Count++;
+            _unitOfWork.ShoppingCart.Update(cartFromDb);
+            _unitOfWork.Save();
+
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Minus(int cartID)
+        {
+            var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartID);
+            if (cartFromDb.Count <= 1)
+            {
+                _unitOfWork.ShoppingCart.Remove(cartFromDb);
+            }
+            else
+            {
+                cartFromDb.Count--;
+                _unitOfWork.ShoppingCart.Update(cartFromDb);
+            }
+            _unitOfWork.Save();
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Remove(int cartID)
+        {
+            var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartID);
+            _unitOfWork.ShoppingCart.Remove(cartFromDb);
+            _unitOfWork.Save();
+            return RedirectToAction(nameof(Index));
+        }
+
         private int GetPriceOnQuantity(ShoppingCart shoppingCart)
         {
             if(shoppingCart.Count < 50)
