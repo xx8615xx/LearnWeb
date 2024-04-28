@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Stripe.Climate;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace LearnWeb.Areas.Admin.Controllers
 {
@@ -65,7 +66,21 @@ namespace LearnWeb.Areas.Admin.Controllers
         [HttpGet]
 		public IActionResult GetAll(string status)
 		{
-			IEnumerable<OrderHeader> data = _unitOfWork.OrderHeader.GetAll(includeProperties: "ApplicationUser").ToList();
+			IEnumerable<OrderHeader> data;
+
+            if(User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Admin))
+            {
+                data = _unitOfWork.OrderHeader.GetAll(includeProperties: "ApplicationUser").ToList();
+            }
+            else
+            {
+                ClaimsIdentity claimsIdentity = (ClaimsIdentity)User.Identity;
+                var userid = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                data = _unitOfWork.OrderHeader
+                    .GetAll(u=>u.ApplicationUserID == userid, includeProperties: "ApplicationUser");
+            }
+
             switch (status)
             {
                 case "pending":
