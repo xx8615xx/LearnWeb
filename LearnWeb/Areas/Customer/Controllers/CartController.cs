@@ -76,8 +76,10 @@ namespace LearnWeb.Areas.Customer.Controllers
 
 			ShoppingCartVM.OrderHeader.OrderDate = DateTime.Now;
 			ShoppingCartVM.OrderHeader.ApplicationUserID = userid;
+            ShoppingCartVM.OrderHeader.City = "notUsedNow";
+            ShoppingCartVM.OrderHeader.State = "TW";
 
-			ShoppingCartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userid);
+			ApplicationUser applicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userid);
 
 			foreach (var cart in ShoppingCartVM.ShoppingCartList)
 			{
@@ -85,14 +87,16 @@ namespace LearnWeb.Areas.Customer.Controllers
 				ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
 			}
 
-			if (ShoppingCartVM.OrderHeader.ApplicationUser.CompanyID.GetValueOrDefault() == 0)
+			if (applicationUser.CompanyID.GetValueOrDefault() == 0)
 			{
+                //it is a regular account
 				ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
 				ShoppingCartVM.OrderHeader.OrderStatus = SD.StatusPending;
 			}
 			else
 			{
-				ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
+                //it is a company user
+				ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusDelayedPayment;
 				ShoppingCartVM.OrderHeader.OrderStatus = SD.StatusApproved;
 			}
 			_unitOfWork.OrderHeader.Add(ShoppingCartVM.OrderHeader);
@@ -111,8 +115,18 @@ namespace LearnWeb.Areas.Customer.Controllers
 				_unitOfWork.Save();
 			}
 
-			return View(ShoppingCartVM);
+			if (applicationUser.CompanyID.GetValueOrDefault() == 0)
+			{
+				//it is a regular account. we need to capture payment
+			}
+
+			return RedirectToAction(nameof(OrderConfirmation), new { orderID = ShoppingCartVM.OrderHeader.ID});
 		}
+
+        public IActionResult OrderConfirmation(int orderID)
+        {
+            return View(orderID);
+        }
 
 		public IActionResult Plus(int cartID)
         {
