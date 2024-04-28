@@ -31,6 +31,7 @@ namespace Learn.Models
         public DateTime PaymentDate { get; set; }
         public DateOnly PaymentDueDate { get; set; }
 
+        public string? SessionID { get; set; }
         public string? PaymentIntentID { get; set; }
 
         [Required]
