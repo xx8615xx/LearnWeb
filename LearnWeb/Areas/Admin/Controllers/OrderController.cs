@@ -11,6 +11,7 @@ using System.Security.Claims;
 namespace LearnWeb.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+    [Authorize]
 	public class OrderController : Controller
 	{
 		private readonly IUnitOfWork _unitOfWork;
@@ -60,6 +61,16 @@ namespace LearnWeb.Areas.Admin.Controllers
             TempData["success"] = "Order Details Updated Successfully.";
 
             return RedirectToAction(nameof(Details), new { orderID = orderHeaderFromDb.ID});
+        }
+
+        [HttpPost]
+        [Authorize(Roles = SD.Role_Admin + "," + SD.Role_Employee)]
+        public IActionResult StartProcessing()
+        {
+            _unitOfWork.OrderHeader.UpdateStatus(OrderVM.OrderHeader.ID, SD.StatusInProcess);
+            _unitOfWork.Save();
+            TempData["success"] = "Order Start Processing Successfully.";
+            return RedirectToAction(nameof(Details), new { orderID = OrderVM.OrderHeader.ID });
         }
 
         #region API CALLS
