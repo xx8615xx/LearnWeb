@@ -131,7 +131,6 @@ namespace LearnWeb.Areas.Admin.Controllers
             _unitOfWork.Save();
 
             return Json(new { success=true, message = "Lock/Unlock successfully." });
-
         }
         #endregion
     }
