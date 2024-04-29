@@ -134,7 +134,7 @@ namespace LearnWeb.Areas.Admin.Controllers
                 .GetAll(u => u.OrderHeaderID == OrderVM.OrderHeader.ID, includeProperties: "Product");
 
             //stripe logic
-            var domain = "http://localhost:5101/";
+            var domain = Request.Scheme+"://"+Request.Host.Value+"/";
             var options = new Stripe.Checkout.SessionCreateOptions
             {
                 SuccessUrl = domain + $"admin/order/PaymentConfirmation?orderHeaderID={OrderVM.OrderHeader.ID}",

@@ -119,10 +119,10 @@ namespace LearnWeb.Areas.Customer.Controllers
 
 			if (applicationUser.CompanyID.GetValueOrDefault() == 0)
 			{
-				//it is a regular account. we need to capture payment
-				//stripe logic
-				var domain = "http://localhost:5101/";
-				var options = new Stripe.Checkout.SessionCreateOptions
+                //it is a regular account. we need to capture payment
+                //stripe logic
+                var domain = Request.Scheme + "://" + Request.Host.Value + "/";
+                var options = new Stripe.Checkout.SessionCreateOptions
 				{
 					SuccessUrl = domain+ $"Customer/Cart/OrderConfirmation?orderID={ShoppingCartVM.OrderHeader.ID}",
 					CancelUrl = domain+ "Customer/Cart/Index",

@@ -18,7 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(options=>
 builder.Services.Configure<StripeSetting>(builder.Configuration.GetSection("Stripe"));
 
 builder.Services.AddRazorPages();
-//builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppDbContext>();
+
 builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 builder.Services.ConfigureApplicationCookie(options =>
 {
