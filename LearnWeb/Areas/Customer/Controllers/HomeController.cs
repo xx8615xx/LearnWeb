@@ -25,14 +25,6 @@ namespace LearnWeb.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            ClaimsIdentity claimsIdentity = (ClaimsIdentity)User.Identity;
-            var claims = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-            if (claims != null)
-            {
-                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart
-                    .GetAll(u => u.ApplicationUserID == claims.Value).Count());
-            }
-
             IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
             return View(productList);
         }
