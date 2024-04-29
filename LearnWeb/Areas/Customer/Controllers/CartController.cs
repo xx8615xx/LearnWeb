@@ -178,8 +178,9 @@ namespace LearnWeb.Areas.Customer.Controllers
 			List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserID == orderHeader.ApplicationUserID).ToList();
 			_unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
 			_unitOfWork.Save();
+			HttpContext.Session.SetInt32(SD.SessionCart,0);
 
-			return View(orderID);
+            return View(orderID);
 		}
 
 		public IActionResult Plus(int cartID)
