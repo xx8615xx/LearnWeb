@@ -32,10 +32,7 @@ namespace Learn.DataAccess.Repository
                 objFromDB.Price50 = obj.Price50;
                 objFromDB.Price100 = obj.Price100;
                 objFromDB.CategoryID = obj.CategoryID;
-                //if(obj.ImageUrl != null)
-                //{
-                //    objFromDB.ImageUrl = obj.ImageUrl;
-                //}
+                objFromDB.ProductImages = obj.ProductImages;
             }
         }
     }

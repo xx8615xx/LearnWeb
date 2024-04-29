@@ -31,9 +31,12 @@ namespace LearnWeb.Areas.Customer.Controllers
 				OrderHeader = new()
 			};
 
+			IEnumerable<ProductImage> productImages = _unitOfWork.ProductImage.GetAll();
+
 			foreach (var cart in ShoppingCartVM.ShoppingCartList)
 			{
-				cart.Price = GetPriceOnQuantity(cart);
+				cart.Product.ProductImages = productImages.Where(u=>u.ProductID==cart.Product.ID).ToList();
+                cart.Price = GetPriceOnQuantity(cart);
 				ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
 			}
 
