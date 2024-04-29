@@ -1,4 +1,5 @@
 ﻿using Learn.DataAccess.Data;
+using Learn.DataAccess.Repository;
 using Learn.DataAccess.Repository.IRepository;
 using Learn.Models;
 using Learn.Models.ViewModels;
@@ -51,10 +52,27 @@ namespace LearnWeb.Areas.Admin.Controllers
 
         }
 
-        [HttpDelete]
-        public IActionResult Delete(int? id)
+        [HttpPost]
+        public IActionResult LockAndUnlock([FromBody]string id)
         {
-            return Json(new { success=true, message = "Deleted successfully." });
+            var objFromDb = _unitOfWork.ApplicationUser.Get(u=>u.Id == id,tracked:true);
+            if (objFromDb==null)
+            {
+                return Json(new { sucess=false,message="Error while Locking/Unlocking"});
+            }
+
+            if(objFromDb.LockoutEnd!=null && objFromDb.LockoutEnd > DateTime.Now)
+            {
+                // user is locked
+                objFromDb.LockoutEnd = DateTime.Now;
+            }
+            else
+            {
+                objFromDb.LockoutEnd = DateTime.Now.AddYears(1000);
+            }
+            _unitOfWork.Save();
+
+            return Json(new { success=true, message = "Lock/Unlock successfully." });
 
         }
         #endregion

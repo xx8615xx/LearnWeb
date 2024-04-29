@@ -13,13 +13,32 @@ function loadDataTable() {
             { data: 'company.name', "width": "15%" },
             { data: 'role', "defaultContent": "" ,"width":"10%"},
             {
-                data: 'id',
+                data: {id:'id', lockoutEnd:'lockoutEnd'},
                 "render": function (data) {
-                    return `
-                     <div class="w-75 btn-group" role="group">
-                     <a href="/admin/company/upsert?id=${data}" class="btn btn-primary mx-2"><i class="bi bi-pencil-fill"></i>Edit</a>
-                     <a onClick=Delete('/admin/company/delete/${data}') class="btn btn-danger mx-2"><i class="bi bi-trash-fill"></i>Delete</a>
-                     </div>`
+                    var today = new Date().getTime();
+                    var lockout = new Date(data.lockoutEnd).getTime();
+                    if (lockout > today) {
+                        return `
+                         <div class="text-center">
+                            <a onclick=LockAndUnlock('${data.id}') class="btn btn-danger text-white" style="cursor:pointer; width:100px;">
+                                <i class="bi bi-unlock-fill"></i>Lock
+                            </a>
+                            <a  class="btn btn-danger text-white" style="cursor:pointer; width:150px;">
+                                <i class="bi bi-pencil-fill"></i>Permission
+                            </a>
+                         </div>`
+                    }
+                    else {
+                        return `
+                         <div class="text-center">
+                            <a onclick=LockAndUnlock('${data.id}') class="btn btn-success text-white" style="cursor:pointer; width:100px;">
+                                <i class="bi bi-unlock-fill"></i>Unlock
+                            </a>
+                            <a  class="btn btn-danger text-white" style="cursor:pointer; width:150px;">
+                                <i class="bi bi-pencil-fill"></i>Permission
+                            </a>
+                         </div>`
+                    }
                 },
                 width:"25%"
             }
@@ -27,25 +46,17 @@ function loadDataTable() {
     });
 }
 
-function Delete (url){
-    Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: url,
-                type: 'DELETE',
-                success: function (data) {
-                    dataTable.ajax.reload(),
-                    toastr.success(data.message);
-                }
-            })
+function LockAndUnlock(id) {
+    $.ajax({
+        type: "POST",
+        url: '/Admin/User/LockAndUnlock',
+        data: JSON.stringify(id),
+        contentType: "application/json",
+        success: function (data) {
+            if (data.success) {
+                dataTable.ajax.reload();
+                //toastr.success(data.message);
+            }
         }
     });
 }
