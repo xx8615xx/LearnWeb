@@ -61,26 +61,26 @@ namespace LearnWeb.Areas.Admin.Controllers
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
                 if (file != null)
                 {
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                    string productPath = Path.Combine(wwwRootPath, @"images\product");
+                    //string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    //string productPath = Path.Combine(wwwRootPath, @"images\product");
 
-                    if (!string.IsNullOrEmpty( obj.Product.ImageUrl))
-                    {
-                        //delete old image
-                        string oldImagePath = Path.Combine(wwwRootPath, obj.Product.ImageUrl.TrimStart('\\'));
+                    //if (!string.IsNullOrEmpty( obj.Product.ImageUrl))
+                    //{
+                    //    //delete old image
+                    //    string oldImagePath = Path.Combine(wwwRootPath, obj.Product.ImageUrl.TrimStart('\\'));
 
-                        if(System.IO.File.Exists(oldImagePath))
-                        {
-                            System.IO.File.Delete(oldImagePath);
-                        }
-                    }
+                    //    if(System.IO.File.Exists(oldImagePath))
+                    //    {
+                    //        System.IO.File.Delete(oldImagePath);
+                    //    }
+                    //}
 
-                    using ( var fileStream = new FileStream(Path.Combine(productPath,fileName),FileMode.Create))
-                    {
-                        file.CopyTo(fileStream);
-                    }
+                    //using ( var fileStream = new FileStream(Path.Combine(productPath,fileName),FileMode.Create))
+                    //{
+                    //    file.CopyTo(fileStream);
+                    //}
 
-                    obj.Product.ImageUrl = @"\images\product\" + fileName;
+                    //obj.Product.ImageUrl = @"\images\product\" + fileName;
                 }
 
                 if (obj.Product.ID == 0)
@@ -127,13 +127,13 @@ namespace LearnWeb.Areas.Admin.Controllers
                 return Json(new { success = false, message = "Error while deleting product." });
             }
 
-            string wwwRootPath = _webHostEnvironment.WebRootPath;
-            string oldImagePath = Path.Combine(wwwRootPath, obj.ImageUrl.TrimStart('\\'));
+            //string wwwRootPath = _webHostEnvironment.WebRootPath;
+            //string oldImagePath = Path.Combine(wwwRootPath, obj.ImageUrl.TrimStart('\\'));
 
-            if (System.IO.File.Exists(oldImagePath))
-            {
-                System.IO.File.Delete(oldImagePath);
-            }
+            //if (System.IO.File.Exists(oldImagePath))
+            //{
+            //    System.IO.File.Delete(oldImagePath);
+            //}
 
             _unitOfWork.Product.Remove(obj);
             _unitOfWork.Save();

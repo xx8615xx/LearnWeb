@@ -4,6 +4,7 @@ using Learn.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Learn.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240429142522_removeImageUrl")]
+    partial class removeImageUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -362,28 +365,6 @@ namespace Learn.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Learn.Models.ProductImage", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ProductID");
-
-                    b.ToTable("ProductImages");
-                });
-
             modelBuilder.Entity("Learn.Models.ShoppingCart", b =>
                 {
                     b.Property<int>("Id")
@@ -681,17 +662,6 @@ namespace Learn.DataAccess.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Learn.Models.ProductImage", b =>
-                {
-                    b.HasOne("Learn.Models.Product", "Product")
-                        .WithMany("ProductImages")
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("Learn.Models.ShoppingCart", b =>
                 {
                     b.HasOne("Learn.Models.ApplicationUser", "ApplicationUser")
@@ -769,11 +739,6 @@ namespace Learn.DataAccess.Migrations
                         .HasForeignKey("CompanyID");
 
                     b.Navigation("Company");
-                });
-
-            modelBuilder.Entity("Learn.Models.Product", b =>
-                {
-                    b.Navigation("ProductImages");
                 });
 #pragma warning restore 612, 618
         }
