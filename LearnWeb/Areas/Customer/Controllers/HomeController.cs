@@ -1,7 +1,10 @@
 using Learn.DataAccess.Repository;
 using Learn.DataAccess.Repository.IRepository;
 using Learn.Models;
+using Learn.Models.ViewModels;
+using Learn.Utility;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -22,6 +25,14 @@ namespace LearnWeb.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
+            ClaimsIdentity claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claims = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            if (claims != null)
+            {
+                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart
+                    .GetAll(u => u.ApplicationUserID == claims.Value).Count());
+            }
+
             IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
             return View(productList);
         }
@@ -51,16 +62,17 @@ namespace LearnWeb.Areas.Customer.Controllers
                 //update
                 cartFromDb.Count += shoppingCart.Count;
                 _unitOfWork.ShoppingCart.Update(cartFromDb);
+                _unitOfWork.Save();
             }
             else
             {
                 //add
                 _unitOfWork.ShoppingCart.Add(shoppingCart);
+                _unitOfWork.Save();
+                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart
+                    .GetAll(u => u.ApplicationUserID == shoppingCart.ApplicationUserID).Count());
             }
             TempData["success"] = "Cart updated succesfully.";
-            _unitOfWork.Save();
-
-
             return RedirectToAction(nameof(Index));
         }
 

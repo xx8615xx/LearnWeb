@@ -196,7 +196,9 @@ namespace LearnWeb.Areas.Customer.Controllers
 			var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartID);
 			if (cartFromDb.Count <= 1)
 			{
-				_unitOfWork.ShoppingCart.Remove(cartFromDb);
+                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart
+					.GetAll(u => u.ApplicationUserID == cartFromDb.ApplicationUserID).Count() - 1);
+                _unitOfWork.ShoppingCart.Remove(cartFromDb);
 			}
 			else
 			{
@@ -210,6 +212,8 @@ namespace LearnWeb.Areas.Customer.Controllers
 		{
 			var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartID);
 			_unitOfWork.ShoppingCart.Remove(cartFromDb);
+			HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart
+				.GetAll(u => u.ApplicationUserID == cartFromDb.ApplicationUserID).Count()-1);
 			_unitOfWork.Save();
 			return RedirectToAction(nameof(Index));
 		}
