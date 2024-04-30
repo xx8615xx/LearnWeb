@@ -117,6 +117,7 @@
                                     </span>
                                     <input type="number" asp-for="Count" value="1" class="form-control text-end"
                                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                                    <span asp-validation-for="Count" class="text-danger"></span>
 
                                 </div>
                             </div>
@@ -136,3 +137,7 @@
         </div>
     </div>
 </form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

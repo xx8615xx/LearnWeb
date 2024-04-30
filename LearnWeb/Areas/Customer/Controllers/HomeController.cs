@@ -43,6 +43,14 @@ namespace LearnWeb.Areas.Customer.Controllers
         [Authorize]
         public IActionResult Details(ShoppingCart shoppingCart)
         {
+            if (shoppingCart.Count <= 0)
+            {
+                shoppingCart.Product = _unitOfWork.Product.Get(u => u.ID == shoppingCart.ProductID, includeProperties: "Category,ProductImages");
+                shoppingCart.Count = 1;
+                TempData["error"] = "Update Shopping Cart Failed.";
+                return View(shoppingCart);
+            }
+
             ClaimsIdentity claimsIdentity = (ClaimsIdentity)User.Identity;
             var userid = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
             shoppingCart.ApplicationUserID = userid;
